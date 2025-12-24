@@ -1,4 +1,4 @@
-from typing import Annotated,list,Union
+from typing import Annotated,List,Union
 from fastapi import FastAPI, Cookie,Path,Body, Form
 from pydantic import BaseModel , Field 
 
@@ -7,7 +7,7 @@ class Item(BaseModel):
     description:str | None=Field(default=None,title="The description of the item",max_length=300)
     price:float =Field(gt=0,description="The price must be greater than zero")
     tax:Union[float,None]=None
-    taps:list[str]=[]
+    taps:List[str]=[]
 
 
 app=FastAPI()
@@ -66,6 +66,7 @@ async def update_item(
     if item:
         results.update({"item":item})
 '''
+
 @app.put("/items/{item_id}")
 async def update_item(item_id:int,item:Annotated[Item,Body(embed=True)]):
     results={"item_id":item_id,"item":item}
